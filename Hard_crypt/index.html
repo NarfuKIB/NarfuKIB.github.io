@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Жоская воронцовская крипта | w33k_ctf</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.8f3dca9f.css" as="style"><link rel="preload" href="/assets/js/app.d4f61409.js" as="script"><link rel="preload" href="/assets/js/2.fa7ace66.js" as="script"><link rel="preload" href="/assets/js/1.631e745b.js" as="script"><link rel="preload" href="/assets/js/24.35a6ffcd.js" as="script"><link rel="prefetch" href="/assets/js/10.8e2c5d19.js"><link rel="prefetch" href="/assets/js/11.20090364.js"><link rel="prefetch" href="/assets/js/12.56fca55f.js"><link rel="prefetch" href="/assets/js/13.03da223c.js"><link rel="prefetch" href="/assets/js/14.10c6843e.js"><link rel="prefetch" href="/assets/js/15.845454d7.js"><link rel="prefetch" href="/assets/js/16.9582c5d3.js"><link rel="prefetch" href="/assets/js/17.cd516f79.js"><link rel="prefetch" href="/assets/js/18.5cf32ab8.js"><link rel="prefetch" href="/assets/js/19.34204f89.js"><link rel="prefetch" href="/assets/js/20.24f07836.js"><link rel="prefetch" href="/assets/js/21.7f8f7869.js"><link rel="prefetch" href="/assets/js/22.3f20ce36.js"><link rel="prefetch" href="/assets/js/23.a4908e7f.js"><link rel="prefetch" href="/assets/js/25.64971222.js"><link rel="prefetch" href="/assets/js/26.1f6a4ad9.js"><link rel="prefetch" href="/assets/js/27.b4fa9200.js"><link rel="prefetch" href="/assets/js/28.7b289132.js"><link rel="prefetch" href="/assets/js/29.0937cb9d.js"><link rel="prefetch" href="/assets/js/3.64ae4e2d.js"><link rel="prefetch" href="/assets/js/30.2cc46115.js"><link rel="prefetch" href="/assets/js/31.255b82a5.js"><link rel="prefetch" href="/assets/js/32.1fe3bf90.js"><link rel="prefetch" href="/assets/js/33.e9f197d2.js"><link rel="prefetch" href="/assets/js/34.e5e43276.js"><link rel="prefetch" href="/assets/js/35.e125bc70.js"><link rel="prefetch" href="/assets/js/4.8fda9edc.js"><link rel="prefetch" href="/assets/js/5.d8fe19d3.js"><link rel="prefetch" href="/assets/js/6.d445a503.js"><link rel="prefetch" href="/assets/js/7.18e362ed.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.af85784a.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.8f3dca9f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">w33k_ctf</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="жоская-воронцовская-крипта"><a href="#жоская-воронцовская-крипта" class="header-anchor">#</a> Жоская воронцовская крипта</h1> <hr> <p>Ситуация следующаяя:</p> <div class="language- extra-class"><pre class="language-text"><code>from base64 import b64decode,b64encode
+#flag = w6USWUASwp98U1TDh15hZHvDuXkEw6/CoErDsMKKwoPCmE3CkTAkwqwoLXsZPStGOQUdY1sZAcO+w7BOXcO+GMKxwqxLOEjDgmEcw4F+wqXCicOtJ8OWw47Cl1jDusOuVg==
+#test RXhhbXBsZW9meG9y -&gt; w5dZC0YZwpF8DQDDmwlx
+
+inp,n1,n2= input().split()
+inp=b64decode(inp).decode()
+def get_key(n,x):
+    m=[62057,56713,52957]
+    rez=[(x[0]+x[1])%i for i in m]
+    for i in range(n-3):
+        rez.append((rez[i]*x[0]+x[1]*((i+1)%2))%m[i%3])
+    return rez
+
+inp = [(ord(inp[i])&lt;&lt;8) +ord(inp[i+1]) for i in range(0,len(inp),2)]`                
+print(b64encode(''.join(( chr(k&gt;&gt;8)+chr(k&amp;0xff) for k in [(i^j) for i, j in zip(inp,get_key(len(inp),[int(n1),int(n2)]))])).encode()))
+</code></pre></div><p>Если всмотреться в код внимательно можно увидеть следующие моменты:</p> <ul><li>Помимо флага есть какой-то test в комментах</li> <li>base64 ничего не решает, а просто путает</li> <li>Есть xor'инг на какие то чиселки</li></ul> <p>Если поксорить тест то можно найти ключики генератора и проверить будет ли флаг криптоваться теми же числами:</p> <div class="language- extra-class"><pre class="language-text"><code>from base64 import b64decode
+
+
+flag = &quot;w6USWUASwp98U1TDh15hZHvDuXkEw6/CoErDsMKKwoPCmE3CkTAkwqwoLXsZPStGOQUdY1sZAcO+w7BOXcO+GMKxwqxLOEjDgmEcw4F+wqXCicOtJ8OWw47Cl1jDusOuVg==&quot;
+
+flag=b64decode(flag).decode()
+
+t1=&quot;RXhhbXBsZW9meG9y&quot;
+t2=&quot;w5dZC0YZwpF8DQDDmwlx&quot;
+
+t1=b64decode(t1).decode()
+print(t1)
+t2=b64decode(t2).decode()
+
+def toArray(inp):
+    return [(ord(inp[i])&lt;&lt;8) +ord(inp[i+1]) for i in range(0,len(inp),2)]
+
+key=[i^j for i,j in zip(toArray(t1),toArray(t2))]
+print(''.join(( chr(k&gt;&gt;8)+chr(k&amp;0xff) for k in [(i^j) for i, j in zip(toArray(flag),key)])).encode())
+
+print(f&quot;t1 numbers{toArray(t1)} \nt2 numbers{toArray(t2)} \npart of key {key}&quot;)
+</code></pre></div><p>Вывод будет такой:</p> <div class="language- extra-class"><pre class="language-text"><code>Exampleofxor
+b'w33k{be12d8b'
+t1 numbers[17784, 24941, 28780, 25967, 26232, 28530] 
+t2 numbers[55129, 2886, 6545, 31757, 219, 2417] 
+part of key [37409, 27179, 27133, 6498, 26275, 26115]
+</code></pre></div><p>Теперь вторая часть надо раскурить генератор(дважды китайская теорема об остатках, тупо кидаем в SageMath - https://sagecell.sagemath.org/ и ждем числеки):</p> <div class="language- extra-class"><pre class="language-text"><code>l=[37409, 27179, 27133, 6498, 26275, 26115]
+m=[62057,56713,52957]
+c=CRT_list([37409, 27179, 27133],[62057,56713,52957])
+r=[(l[3]-c)%m[0],(l[4])%m[1],(l[5]-c)%m[2]]
+i=[inverse_mod(l[0]-1,m[0]),inverse_mod(l[1],m[1]),inverse_mod(l[2]-1,m[2])]
+a=[(r[0]*i[0])%m[0],(r[1]*i[1])%m[1],(r[2]*i[2])%m[2]]
+t=CRT_list(a,m)
+b=[(l[0]-t)%m[0],(l[1]-t)%m[1],(l[2]-t)%m[2]]
+t2=CRT_list(b,m)
+print(t,t2)
+</code></pre></div><p>Добавляем числа в таску получаем флаг(в base64):</p> <div class="language- extra-class"><pre class="language-text"><code>w6USWUASwp98U1TDh15hZHvDuXkEw6/CoErDsMKKwoPCmE3CkTAkwqwoLXsZPStGOQUdY1sZAcO+w7BOXcO+GMKxwqxLOEjDgmEcw4F+wqXCicOtJ8OWw47Cl1jDusOuVg== 105972126952042 106632950324271
+b'dzMza3tiZTEyZDhiYjNjZWQzZjQwNTkyNDU5YWVjNzhiZTk3MjZkYWY1NjcwOGZiZmY1OTA4ZDI2MDZlYWRhN2E5ZTlhfQ=='
+</code></pre></div><p>Декодим и...</p> <p><strong>Флаг</strong> w33k{be12d8bb3ced3f40592459aec78be9726daf56708fbff5908d2606eada7a9e9a}</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.d4f61409.js" defer></script><script src="/assets/js/2.fa7ace66.js" defer></script><script src="/assets/js/1.631e745b.js" defer></script><script src="/assets/js/24.35a6ffcd.js" defer></script>
+  </body>
+</html>

